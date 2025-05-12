@@ -1,0 +1,15 @@
+.wpikwiad-delete-option {
+    margin-left: 8px !important;
+    color: #dc3232 !important;
+    border-color: #dc3232 !important;
+}
+
+.wpikwiad-delete-option:hover {
+    background: #dc3232 !important;
+    color: #fff !important;
+}
+
+.wpikwiad-delete-option:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+} 

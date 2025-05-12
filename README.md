@@ -3,3 +3,4 @@ A WordPress plugin which adds functions for experienced users to the WordPress a
 
 ## Feature list:
 - Adds WordPress' hidden "All Options" page (options.php) to the Options submenu
+- Adds a "Delete" button to options in options.php
