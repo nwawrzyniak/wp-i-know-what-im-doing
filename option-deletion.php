@@ -12,9 +12,6 @@ if (!defined('WPINC')) {
  * Handle AJAX request to delete an option
  */
 function wpikwiad_delete_option() {
-    // Debug logging
-    error_log('WP I Know What I\'m Doing: Delete option request received');
-    
     // Verify nonce
     if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'wpikwiad_delete_option')) {
         error_log('WP I Know What I\'m Doing: Nonce verification failed');
@@ -33,20 +30,15 @@ function wpikwiad_delete_option() {
         error_log('WP I Know What I\'m Doing: Empty option name received');
         wp_send_json_error('Invalid option name');
     }
-
-    error_log('WP I Know What I\'m Doing: Attempting to delete option: ' . $option_name);
     
     // Check if option exists before deletion
     $option_exists = get_option($option_name) !== false;
-    error_log('WP I Know What I\'m Doing: Option exists before deletion: ' . ($option_exists ? 'yes' : 'no'));
 
     // Delete the option
     $result = delete_option($option_name);
     
     // Verify deletion
     $option_still_exists = get_option($option_name) !== false;
-    error_log('WP I Know What I\'m Doing: Delete result: ' . ($result ? 'success' : 'failed'));
-    error_log('WP I Know What I\'m Doing: Option still exists after deletion: ' . ($option_still_exists ? 'yes' : 'no'));
     
     if ($result) {
         wp_send_json_success('Option deleted successfully');
@@ -60,8 +52,6 @@ add_action('wp_ajax_wpikwiad_delete_option', 'wpikwiad_delete_option');
  * Add delete buttons to the options table
  */
 function wpikwiad_add_delete_buttons() {
-    // Debug output to help troubleshoot
-    error_log('WP I Know What I\'m Doing: Attempting to add delete buttons');
     ?>
     <!-- Delete Confirmation Modal -->
     <div id="wpikwiad-delete-modal" class="wpikwiad-modal" style="display: none;">
@@ -107,7 +97,6 @@ function wpikwiad_add_delete_buttons() {
     </script>
     <?php
 }
-// Only hook into admin_footer-options.php to avoid duplicates
 add_action('admin_footer-options.php', 'wpikwiad_add_delete_buttons');
 
 /**
@@ -120,13 +109,8 @@ function wpikwiad_enqueue_scripts($hook) {
         return;
     }
 
-    // Debug output to help troubleshoot
-    error_log('WP I Know What I\'m Doing: Loading scripts on page ' . $hook);
-    error_log('Current screen ID: ' . ($current_screen ? $current_screen->id : 'none'));
-
     // Get the plugin directory URL - using the plugin's main file to ensure correct path
     $plugin_url = plugins_url('', dirname(__FILE__) . '/index.php');
-    error_log('Plugin URL: ' . $plugin_url); // Debug log the URL
 
     wp_enqueue_script(
         'wpikwiad-options',
