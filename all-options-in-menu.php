@@ -13,8 +13,8 @@ if (!defined('WPINC')) {
  */
 function wpikwiad_add_all_options_link() {
     add_options_page(
-        'All Options',      // Page title
-        'All Options',      // Menu title
+        __('All Options', 'wp-i-know-what-i-am-doing'),      // Page title
+        __('All Options', 'wp-i-know-what-i-am-doing'),      // Menu title
         'manage_options',   // Capability required
         'options.php',      // Menu slug (URL)
         ''                  // Function (blank as we're linking directly to options.php)
